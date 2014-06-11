@@ -1,1 +1,75 @@
-Hello silex ;)
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8">
+	<title>Coding Day</title>
+
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/flipclock.css">
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="js/flipclock/flipclock.min.js"></script>
+
+</head>
+<body>
+
+<div id="container">
+	<div id="content">
+		<h1>Coding Day Quest</h1>
+		<div id="counter"></div>
+	</div>
+	<div id="description">&nbsp;issues <span class="solved">solved</span>, out of <strong>20</strong></div>
+</div>
+
+<div class="visits" style="display: none;"></div>
+
+<script>
+
+	var counter = null;
+	var counterValue = null;
+
+	var issuesCounterUrl = 'issues.php';
+
+	function httpGet(url)
+	{
+		$.ajax({
+			type: 'GET',
+			url: url,
+			crossDomain: true,
+			dataType: 'json'
+		}).done(function(data) {
+
+			if(counter === null) {
+
+				counterValue = parseInt(data.issues_count);
+
+				counter = $('#counter').FlipClock(counterValue, {
+					clockFace: 'Counter'
+				});
+			}
+
+			var diff = parseInt(data.issues_count) - counterValue;
+
+			if(diff > 0)
+			{
+				for (var i=0; i<diff; i++)
+				{
+					counter.increment();
+				}
+			}
+
+			counterValue = parseInt(data.issues_count);
+		});
+	}
+
+	httpGet(issuesCounterUrl);
+
+	setTimeout(function() {
+		setInterval(function() {
+			httpGet(issuesCounterUrl);
+		}, 10000);
+	});
+
+</script>
+
+</body>
+</html>
