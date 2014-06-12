@@ -18,7 +18,7 @@ class MainController implements ControllerProviderInterface
 		{
 			$today = date('Y-m-d');
 			$deadLine = new \DateTime();
-			$deadLine->setTime(23,59,0);
+			$deadLine->setTime(10,30,0);
 
 			$client = new \Github\Client();
 			$client->authenticate(OAUTH_TOKEN,null, 'http_token');
