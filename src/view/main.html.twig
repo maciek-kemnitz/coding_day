@@ -17,7 +17,7 @@
 		<h1>Coding Day Quest</h1>
 		<div id="counter"></div>
 	</div>
-	<div id="description">&nbsp;issues <span class="solved">solved</span>, out of <strong>20</strong></div>
+	<div id="description">&nbsp;issues <span class="solved">solved</span>, out of <strong>{{ issueCount }}</strong></div>
 </div>
 
 <div class="visits" style="display: none;"></div>
@@ -27,7 +27,7 @@
 	var counter = null;
 	var counterValue = null;
 
-	var issuesCounterUrl = 'issues.php';
+	var issuesCounterUrl = '/issues-count';
 
 	function httpGet(url)
 	{

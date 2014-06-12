@@ -1,7 +1,13 @@
 <?php
-/**
- * Created by: gellu
- * Date: 11.06.2014 16:30
- */
 
-echo json_encode(array('issues_count' => 10));
+$today = date('Y-m-d');
+
+$client = new \Github\Client();
+$client->authenticate(OAUTH_TOKEN,null, 'http_token');
+$issues = $client->api('issue')->all('ZnanyLekarz', 'znanylekarz', array('labels' => "coding day", 'state' => 'open'));
+
+
+$leftOpen = count($issues);
+var_dump($leftOpen);
+
+echo json_encode(array('issues_count' => $leftOpen));
