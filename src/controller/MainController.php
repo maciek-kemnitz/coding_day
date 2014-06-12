@@ -28,7 +28,7 @@ class MainController implements ControllerProviderInterface
 
 			if ($app['session']->has($today))
 			{
-				if ($deadLine < new \DateTime())
+				if ($deadLine > new \DateTime())
 				{
 					$app['session']->set($today, $issueCount);
 				}
